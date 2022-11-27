@@ -5,6 +5,13 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "08f3793136e94baba88ea2cc34e372c9",
+      application: "lab-9"
+    });
+  </script>
   <title>Lab 9</title>
 
   <style>
@@ -102,6 +109,78 @@
 
     // Start your code here
     // You may move this JS to another file if you wish
+    errorBtns[0].addEventListener('click', ()=>{ console.log("Console Log Demo") });
+    errorBtns[1].addEventListener('click', ()=>{ console.error("Console Error Demo") });
+    errorBtns[2].addEventListener('click', ()=>{ console.count("Count") });
+    errorBtns[3].addEventListener('click', ()=>{ console.warn("Console Warn Demo") });
+    errorBtns[4].addEventListener('click', ()=>{ console.assert(3 == 2, "3 is not equal 2."); });
+    errorBtns[5].addEventListener('click', ()=>{ console.clear() });
+    errorBtns[6].addEventListener('click', ()=>{ console.dir(errorBtns[6]) });
+    errorBtns[7].addEventListener('click', ()=>{ console.dirxml(errorBtns[7]) });
+    errorBtns[8].addEventListener('click', ()=>{ console.group() });
+    errorBtns[9].addEventListener('click', ()=>{ console.groupEnd(); });
+
+    function IceCream(flavor, rating) {
+      this.flavor = flavor;
+      this.rating = rating;
+    }
+    const flavor1 = new IceCream("Vanilla", "5");
+    const flavor2 = new IceCream("Chocolate", "3");
+    const flavor3 = new IceCream("Mint", "4");
+    errorBtns[10].addEventListener('click', ()=>{ console.table([flavor1, flavor2, flavor3]); });
+    
+    errorBtns[11].addEventListener('click', ()=>{ console.time("Timer Button"); });
+    errorBtns[12].addEventListener('click', ()=>{ console.timeEnd("Timer Button"); });
+
+    function uno(){
+      reverse()
+    }
+    function reverse(){
+      plus4()
+    }
+    function plus4(){
+      console.trace()
+    }
+    errorBtns[13].addEventListener('click', uno);
+    errorBtns[14].addEventListener('click', ()=>{ let i = boom; });
+
+    class inputOutOfRange extends Error {
+      constructor(message) {
+        super(message); // (1)
+        this.name = "inputOutOfRange"; // (2)
+      }
+    }
+
+    function tryCatch(){
+      try {
+        let firstNum = document.querySelector('#first-num').value;
+        let secondNum = document.querySelector('#second-num').value;
+        let operator = document.querySelector('#operator').value;
+        if(firstNum < 0 || secondNum < 0){
+          throw "Invalid input: first or second number is negative."
+        }
+        if(firstNum > 999 || secondNum > 999){
+          throw new inputOutOfRange('input is greater than 100.');
+        }
+        console.log(eval(`${firstNum} ${operator} ${secondNum}`));
+      }
+      catch(err) {
+        console.log(err);
+        console.log("try calling the function tryCatch() again after filling valid inputs.");
+      }
+      finally {
+        document.querySelector('#first-num').value = '';
+        document.querySelector('#second-num').value = '';
+        document.querySelector('#operator').value = '+';
+        document.querySelector('output').innerHTML = '';
+      }
+    }
+    tryCatch();
+
+    window.addEventListener("error", (event) => {
+      console.log(`Global Error Handler: ${event.message}\n`);
+    });
+   
   </script>
 </body>
 
